@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Kartoshka - Loading</title>
+
+<style>
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Fond */
+body {
+    background: url("background.jpg") center center no-repeat;
+    background-size: cover;
+}
+
+/* Effet sombre */
+#overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(30,0,40,0.6), rgba(0,0,0,0.9));
+}
+
+/* Logo */
+#logo {
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 380px;
+    filter: drop-shadow(0 0 25px #c800ff);
+}
+
+/* Texte */
+#text {
+    position: absolute;
+    bottom: 70px;
+    width: 100%;
+    text-align: center;
+    color: #ff8bff;
+    font-size: 22px;
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px #ff00ff;
+}
+
+/* Barre de chargement fake */
+#bar-container {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 400px;
+    height: 8px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 20px;
+}
+
+#bar {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, #ff00ff, #8000ff);
+    border-radius: 20px;
+    animation: loading 8s infinite;
+}
+
+@keyframes loading {
+    0% { width: 0%; }
+    50% { width: 100%; }
+    100% { width: 0%; }
+}
+</style>
+</head>
+
+<body>
+<div id="overlay"></div>
+
+<img id="logo" src="logo.png">
+
+<div id="text">
+    KARTOSHKA • DARK RP SEMI-SÉRIEUX<br>
+    Chargement du serveur...
+</div>
+
+<div id="bar-container">
+    <div id="bar"></div>
+</div>
+
+</body>
+</html>
