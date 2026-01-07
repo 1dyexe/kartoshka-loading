@@ -128,7 +128,7 @@ html, body {
     <div id="bar"></div>
 </div>
 
-<div id="mute-btn" onclick="toggleMusic()">🔊</div>
+<div id="mute-btn">🔊</div>
 
 <script>
 /* BACKGROUNDS */
@@ -145,12 +145,13 @@ setInterval(changeBackground, 6000);
 
 /* TEXTES */
 const texts = [
-    "Kartoshka • DarkRP Semi-Sérieux",
+    "Kartoshka • Le DarkRP Sans Joueurs Cancer",
     "Le RP avant tout",
     "Respect du FearRP obligatoire",
     "Freekill = sanction",
     "Staff actif et à l’écoute",
     "Rejoignez notre Discord"
+    "N'oubliez pas de DL les css content et autres..."
 ];
 
 let textIndex = 0;
@@ -161,11 +162,12 @@ setInterval(() => {
     textIndex = (textIndex + 1) % texts.length;
 }, 3000);
 
-/* MUSIQUE SAFE GMod */
+/* MUSIQUE COMPATIBLE GMod */
 const music = document.getElementById("music");
 const muteBtn = document.getElementById("mute-btn");
 let musicStarted = false;
 
+/* Lancement musique au premier clic */
 document.addEventListener("click", () => {
     if (!musicStarted) {
         music.play().catch(() => {});
@@ -173,14 +175,15 @@ document.addEventListener("click", () => {
     }
 });
 
-function toggleMusic() {
+/* Bouton mute SAFE */
+muteBtn.addEventListener("click", () => {
     if (!musicStarted) {
         music.play().catch(() => {});
         musicStarted = true;
     }
     music.muted = !music.muted;
     muteBtn.textContent = music.muted ? "🔇" : "🔊";
-}
+});
 </script>
 
 </body>
