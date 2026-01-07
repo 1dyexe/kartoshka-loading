@@ -1,181 +1,173 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<title>Kartoshka Loading</title>
+    <meta charset="UTF-8">
+    <title>Kartoshka Loading</title>
 
-<style>
-html, body {
-    margin: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    font-family: Arial, sans-serif;
-}
+    <style>
+        html, body {
+            margin: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+            background: black;
+        }
 
-/* BACKGROUND */
-#background {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-    background-position: center;
-    transition: background-image 1.5s ease-in-out;
-}
+        /* BACKGROUND */
+        #background {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            transition: background-image 1.5s ease-in-out;
+        }
 
-/* OVERLAY SOMBRE */
-#overlay {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle, rgba(50,0,80,0.6), rgba(0,0,0,0.9));
-}
+        /* OVERLAY */
+        #overlay {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(50,0,80,0.6), rgba(0,0,0,0.9));
+        }
 
-/* LOGO */
-#logo {
-    position: absolute;
-    top: 40%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 360px;
-    filter: drop-shadow(0 0 30px #ff00ff);
-}
+        /* LOGO */
+        #logo {
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 360px;
+            filter: drop-shadow(0 0 30px #ff00ff);
+        }
 
-/* TEXTE DÉFILANT */
-#loading-text {
-    position: absolute;
-    bottom: 120px;
-    width: 100%;
-    text-align: center;
-    color: #ff8bff;
-    font-size: 24px;
-    letter-spacing: 2px;
-    text-shadow: 0 0 12px #ff00ff;
-    animation: fade 3s infinite;
-}
+        /* TEXTE */
+        #loading-text {
+            position: absolute;
+            bottom: 120px;
+            width: 100%;
+            text-align: center;
+            color: #ff8bff;
+            font-size: 24px;
+            letter-spacing: 2px;
+            text-shadow: 0 0 12px #ff00ff;
+            animation: fade 3s infinite;
+        }
 
-@keyframes fade {
-    0% { opacity: 0; }
-    20% { opacity: 1; }
-    80% { opacity: 1; }
-    100% { opacity: 0; }
-}
+        @keyframes fade {
+            0% { opacity: 0; }
+            20% { opacity: 1; }
+            80% { opacity: 1; }
+            100% { opacity: 0; }
+        }
 
-/* BARRE DE CHARGEMENT */
-#bar-container {
-    position: absolute;
-    bottom: 60px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 420px;
-    height: 8px;
-    background: rgba(255,255,255,0.15);
-    border-radius: 20px;
-}
+        /* BARRE */
+        #bar-container {
+            position: absolute;
+            bottom: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 420px;
+            height: 8px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 20px;
+        }
 
-#bar {
-    height: 100%;
-    width: 0%;
-    background: linear-gradient(90deg, #ff00ff, #8000ff);
-    border-radius: 20px;
-    animation: loading 8s infinite;
-}
+        #bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #ff00ff, #8000ff);
+            border-radius: 20px;
+            animation: loading 8s infinite;
+        }
 
-@keyframes loading {
-    0% { width: 0%; }
-    50% { width: 100%; }
-    100% { width: 0%; }
-}
+        @keyframes loading {
+            0% { width: 0%; }
+            50% { width: 100%; }
+            100% { width: 0%; }
+        }
 
-/* BOUTON MUTE */
-#mute-btn {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    padding: 10px 14px;
-    font-size: 20px;
-    cursor: pointer;
-    color: #ff8bff;
-    border: 2px solid #ff00ff;
-    border-radius: 12px;
-    background: rgba(0,0,0,0.4);
-    box-shadow: 0 0 12px #ff00ff;
-    transition: all 0.2s ease;
-}
-
-#mute-btn:hover {
-    background: rgba(255,0,255,0.2);
-    box-shadow: 0 0 20px #ff00ff;
-}
-</style>
+        /* MUTE */
+        #mute-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 10px 14px;
+            font-size: 20px;
+            cursor: pointer;
+            color: #ff8bff;
+            border: 2px solid #ff00ff;
+            border-radius: 12px;
+            background: rgba(0,0,0,0.4);
+            box-shadow: 0 0 12px #ff00ff;
+        }
+    </style>
 </head>
 
 <body>
 
-<!-- MUSIQUE -->
-<audio id="music" autoplay loop>
-    <source src="https://raw.githubusercontent.com/1dyexe/kartoshka-loading/main/music.mp3" type="audio/mpeg">
-</audio>
+    <!-- MUSIQUE -->
+    <audio id="music" autoplay loop>
+        <source src="https://raw.githubusercontent.com/1dyexe/kartoshka-loading/main/music.mp3" type="audio/mpeg">
+    </audio>
 
-<div id="background"></div>
-<div id="overlay"></div>
+    <div id="background"></div>
+    <div id="overlay"></div>
 
-<img id="logo" src="https://raw.githubusercontent.com/1dyexe/kartoshka-loading/main/logo.jpg">
+    <img id="logo" src="https://raw.githubusercontent.com/1dyexe/kartoshka-loading/main/logo.jpg">
 
-<div id="loading-text">Connexion au serveur...</div>
+    <div id="loading-text">Connexion au serveur...</div>
 
-<div id="bar-container">
-    <div id="bar"></div>
-</div>
+    <div id="bar-container">
+        <div id="bar"></div>
+    </div>
 
-<div id="mute-btn" onclick="toggleMusic()">🔊</div>
+    <div id="mute-btn" onclick="toggleMusic()">🔊</div>
 
-<script>
-// BACKGROUNDS
-const backgrounds = ["https://raw.githubusercontent.com/1dyexe/kartoshka-loading/main/bg1.jpg", "bg2.jpg", "bg3.jpg"];
-let bgIndex = 0;
-const bg = document.getElementById("background");
+    <script>
+        const backgrounds = [
+            "https://raw.githubusercontent.com/1dyexe/kartoshka-loading/main/bg1.jpg",
+            "https://raw.githubusercontent.com/1dyexe/kartoshka-loading/main/bg2.jpg",
+            "https://raw.githubusercontent.com/1dyexe/kartoshka-loading/main/bg3.jpg"
+        ];
 
-function changeBackground() {
-    bg.style.backgroundImage = `url('${backgrounds[bgIndex]}')`;
-    bgIndex = (bgIndex + 1) % backgrounds.length;
-}
-changeBackground();
-setInterval(changeBackground, 6000);
+        let bgIndex = 0;
+        const bg = document.getElementById("background");
 
-// TEXTES
-const texts = [
-    "Kartoshka • DarkRP Semi-Sérieux",
-    "Le RP avant tout",
-    "Respect du FearRP obligatoire",
-    "Freekill = sanction",
-    "Staff actif et à l’écoute",
-    "Rejoignez notre Discord"
-];
+        function changeBackground() {
+            bg.style.backgroundImage = "url('" + backgrounds[bgIndex] + "')";
+            bgIndex = (bgIndex + 1) % backgrounds.length;
+        }
 
-let textIndex = 0;
-const textDiv = document.getElementById("loading-text");
+        changeBackground();
+        setInterval(changeBackground, 6000);
 
-function changeText() {
-    textDiv.textContent = texts[textIndex];
-    textIndex = (textIndex + 1) % texts.length;
-}
-setInterval(changeText, 3000);
+        const texts = [
+            "Kartoshka • DarkRP Semi-Sérieux",
+            "Le RP avant tout",
+            "FearRP obligatoire",
+            "Freekill = sanction",
+            "Staff actif",
+            "Bon jeu !"
+        ];
 
-// MUTE / UNMUTE
-const music = document.getElementById("music");
-const muteBtn = document.getElementById("mute-btn");
+        let textIndex = 0;
+        const textDiv = document.getElementById("loading-text");
 
-function toggleMusic() {
-    if (music.muted) {
-        music.muted = false;
-        muteBtn.textContent = "🔊";
-    } else {
-        music.muted = true;
-        muteBtn.textContent = "🔇";
-    }
-}
-</script>
+        setInterval(() => {
+            textDiv.textContent = texts[textIndex];
+            textIndex = (textIndex + 1) % texts.length;
+        }, 3000);
+
+        const music = document.getElementById("music");
+        const muteBtn = document.getElementById("mute-btn");
+
+        function toggleMusic() {
+            music.muted = !music.muted;
+            muteBtn.textContent = music.muted ? "🔇" : "🔊";
+        }
+    </script>
 
 </body>
 </html>
