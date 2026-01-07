@@ -29,24 +29,10 @@ setInterval(() => {
     textIndex = (textIndex + 1) % texts.length;
 }, 3000);
 
-/* MUSIQUE ET BOUTON MUTE */
+/* MUSIQUE AUTOMATIQUE */
 const music = document.getElementById("music");
-const muteBtn = document.getElementById("mute-btn");
-let musicStarted = false;
 
-function startMusic() {
-    if (!musicStarted) {
-        music.play().catch(() => {});
-        musicStarted = true;
-    }
-}
-
-/* Démarrer musique au premier clic */
-document.addEventListener("click", startMusic);
-
-/* Bouton mute/unmute */
-muteBtn.addEventListener("click", () => {
-    startMusic(); // assure que la musique démarre si clic sur le bouton
-    music.muted = !music.muted;
-    muteBtn.textContent = music.muted ? "🔇" : "🔊";
+// Essayer de jouer automatiquement, boucle activée via autoplay
+music.play().catch(() => {
+    console.log("Musique non autorisée à jouer automatiquement (dans GMod, ça dépend du client).");
 });
