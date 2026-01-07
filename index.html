@@ -17,7 +17,7 @@ html, body {
 body {
     background-size: cover;
     background-position: center;
-    transition: background-image 1.5s ease-in-out;
+    transition: background-image 2s ease-in-out;
 }
 
 /* OVERLAY */
@@ -82,16 +82,22 @@ body {
 </div>
 
 <script>
-/* FONDS ANIMÉS */
+/* FONDS ANIMÉS AVEC FADE */
 const backgrounds = ["bg1.jpg","bg2.jpg","bg3.jpg"];
 let bgIndex = 0;
+let bgNextIndex = 1;
 
-function changeBG(){
-    document.body.style.backgroundImage = `url('${backgrounds[bgIndex]}')`;
-    bgIndex = (bgIndex + 1) % backgrounds.length;
+function fadeBackground() {
+    const nextImage = new Image();
+    nextImage.src = backgrounds[bgNextIndex];
+    nextImage.onload = () => {
+        document.body.style.backgroundImage = `url('${backgrounds[bgNextIndex]}')`;
+        bgIndex = bgNextIndex;
+        bgNextIndex = (bgNextIndex + 1) % backgrounds.length;
+    };
 }
-changeBG();
-setInterval(changeBG, 6000);
+fadeBackground();
+setInterval(fadeBackground, 6000); // change toutes les 6s avec fade
 
 /* TEXTES ANIMÉS */
 const texts = [
@@ -120,25 +126,22 @@ setInterval(()=>{
 const music = document.getElementById("music");
 music.play().catch(()=>{ console.log("Musique bloquée, GMod peut empêcher l'autoplay."); });
 
-/* BARRE DE CHARGEMENT ALÉATOIRE */
+/* BARRE DE CHARGEMENT LENTE */
 const bar = document.getElementById("bar");
 let width = 0;
-let direction = 1;
-
-function randomStep() {
-    return Math.random() * 4 + 1; // petits pas aléatoires 1-5%
-}
+const totalTime = 90 * 1000; // 90 secondes pour remplir complètement
+const startTime = Date.now();
 
 function updateBar() {
-    width += direction * randomStep();
-    if (width >= 100) direction = -1;
-    if (width <= 0) direction = 1;
-    width = Math.max(0, Math.min(100, width));
+    const elapsed = Date.now() - startTime;
+    width = Math.min(100, (elapsed / totalTime) * 100); // remplissage progressif
     bar.style.width = width + "%";
-    requestAnimationFrame(updateBar);
+    if (width < 100) {
+        requestAnimationFrame(updateBar);
+    }
 }
 
-updateBar(); // démarrer la boucle
+updateBar();
 </script>
 
 </body>
